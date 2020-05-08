@@ -7,7 +7,6 @@ import config from './auth_config.json';
 import history from './utils/history';
 
 const onRedirectCallback = (appState) => {
-  console.log(appState);
   history.push(
     appState && appState.targetUrl
       ? appState.targetUrl
