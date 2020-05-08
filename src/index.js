@@ -5,13 +5,16 @@ import App from './App';
 import { Auth0Provider } from './react-auth0-spa';
 import config from './auth_config.json';
 import history from './utils/history';
+import { useAuth0 } from '../react-auth0-spa';
+
+const { loginWithRedirect } = useAuth0();
 
 const onRedirectCallback = (appState) => {
-  history.push(
-    appState && appState.targetUrl
-      ? appState.targetUrl
-      : window.location.pathname
-  );
+  if (appState && appState.targetUrl) {
+    return history.push(appState.targetUrl);
+  } else {
+    loginWithRedirect({ appState: { targetUrl: window.location.pathname } });
+  }
 };
 
 ReactDOM.render(
